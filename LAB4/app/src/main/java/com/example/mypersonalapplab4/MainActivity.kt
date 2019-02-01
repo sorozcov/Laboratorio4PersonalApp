@@ -3,6 +3,7 @@ package com.example.mypersonalapplab4
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,18 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import android.R.attr.fragment
+import android.R.attr.fragmentExitTransition
+import android.content.Intent
+import android.net.Uri
+import android.support.v4.app.FragmentTransaction
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Toast
+
+import kotlinx.android.synthetic.main.git_proyecto.*
+import kotlinx.android.synthetic.main.proyectos.*
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,15 +38,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
         nav_view.setNavigationItemSelectedListener(this)
+        var fragment: Fragment = Inicio()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.content_frame, fragment)
+            .commit()
+
+
     }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            var fragment: Fragment = Inicio()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit()
         }
     }
 
@@ -47,20 +71,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+        //creating fragment object
+        var fragment: Fragment = Inicio()
         when (item.itemId) {
             R.id.nav_inicio -> {
-                // Handle the camera action
+                fragment = Inicio()
             }
             R.id.nav_proyectos -> {
-
+                fragment = Proyectos()
             }
             R.id.nav_direccion -> {
-
+                fragment = Mapas()
             }
 
-        }
 
+
+
+        }
+        //replacing the fragment
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.content_frame, fragment)
+            .commit()
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
+
+
 }
