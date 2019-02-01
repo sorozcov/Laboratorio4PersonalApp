@@ -1,7 +1,6 @@
-package com.example.mypersonalapplab4
+package com.example.mypersonalapplab4.ViewsFragments
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -11,19 +10,9 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import android.R.attr.fragment
-import android.R.attr.fragmentExitTransition
-import android.content.Intent
-import android.net.Uri
-import android.support.v4.app.FragmentTransaction
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.Toast
+import com.example.mypersonalapplab4.R
 
-import kotlinx.android.synthetic.main.git_proyecto.*
-import kotlinx.android.synthetic.main.proyectos.*
-
-
+/*Main Activity donde se cargan y se reemplazan los distintos fragmentos.*/
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +23,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
@@ -45,14 +36,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .replace(R.id.content_frame, fragment)
             .commit()
 
-
+        /*Se han establecido caracteristicas iniciales junto con el fragment*/
     }
 
-
+    //Depende de si esta en inicio, si esta en el drawer o si esta en otra activity back pressed se ejecuta diferente.
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
+        } else if (supportFragmentManager.findFragmentById(R.id.content_frame)  is Inicio) {
+            super.onBackPressed()
+        }else{
             var fragment: Fragment = Inicio()
             supportFragmentManager
                 .beginTransaction()
@@ -68,7 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-
+    /*Dependiendo del item escogido en el menu, se reemplaza por un fragmento distinto.*/
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         //creating fragment object

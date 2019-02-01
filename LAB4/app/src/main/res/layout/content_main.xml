@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/app_bar_main"
-        tools:context=".MainActivity" android:background="#3AAAFF">
+        tools:context=".ViewsFragments.MainActivity" android:background="#3AAAFF">
 
     <FrameLayout
             android:id="@+id/content_frame"

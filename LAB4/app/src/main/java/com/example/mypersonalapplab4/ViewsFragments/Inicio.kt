@@ -1,6 +1,4 @@
-package com.example.mypersonalapplab4
-
-import android.R
+package com.example.mypersonalapplab4.ViewsFragments
 
 
 import android.os.Bundle
@@ -9,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-
+/*Fragment de inicio con foto y nombre.*/
 class Inicio : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
